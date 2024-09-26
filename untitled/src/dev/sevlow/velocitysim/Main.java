@@ -159,8 +159,8 @@ class SimulationPanel extends JPanel {
                 Force2D rf = obj.calculateForces();
                 Vector2D a = obj.calculateAcceleration(rf);
                 a = VectorOperations2D.sumVectors(a, new Vector2D(0, -1 * gravity, Vector2D.Vector2DConstructor.XY));
-                obj.updateVelocities(a);
-                obj.updatePosition(simTime);
+                obj.updateVelocities(a, (1.0/60.0));
+                obj.updatePosition((1.0/60.0) * simSpeed);
                 xDistance = obj.getX();
                 yHeight = obj.getY();
                 xVelocity = obj.getxVelocity();
@@ -190,17 +190,35 @@ class SimulationPanel extends JPanel {
         int screenWidth = getWidth();
         int screenHeight = getHeight();
 
+        setSize(screenWidth - screenWidth % 20, screenHeight - screenHeight % 20);
+
+        screenWidth = getWidth();
+        screenHeight = getHeight();
+
         // Calculate the center of the screen
         int centerX = screenWidth / 2;
         int centerY = screenHeight / 2;
+
+        g.setColor(new Color(75, 172, 201));
+        for(int i = 0; i < 19; i++) {
+            int x1 = (int) ((screenWidth/20) * (i + 1) - (((double) screenWidth / scale) * (this.xDistance)) % (screenWidth/20));
+            g.drawLine(x1, screenHeight, x1, 0);
+        }
+        for(int i = 0; i < 20; i++) {
+            int y1 = (int) ((screenHeight/20) * (i + 1) + (((double) screenHeight / scale) * (this.yHeight)) % (screenHeight/20));
+            g.drawLine(0, y1, screenWidth, y1);
+        }
+        g.setColor(Color.BLUE);
+
         int axisy0 = (int) (centerY + (((double) screenHeight / scale) * (this.yHeight)));
         g.drawLine(0, axisy0, screenWidth, axisy0);
+        g.drawLine(centerX, screenHeight, centerX, 0);
 
         // Offset the ball's position by its distance from the center
         int ballScreenX = centerX;
         int ballScreenY = centerY;  // yHeight is inverted because the y-axis in Graphics goes downwards
 
         // Draw the ball centered in the screen
-        g.fillOval(ballScreenX - 10, ballScreenY - 10, 20, 20);
+        g.fillOval(ballScreenX - (5 * scale/200), ballScreenY - (5 * scale/200), 10 * scale/200, 10 * scale/200);
     }
 }

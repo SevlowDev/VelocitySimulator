@@ -123,9 +123,9 @@ public class PhysicsObject2D {
         this.y = y;
     }
 
-    public void updateVelocities(Vector2D acceleration) {
-        this.xVelocity += acceleration.getX();
-        this.yVelocity += acceleration.getY();
+    public void updateVelocities(Vector2D acceleration, double simulationTime) {
+        this.xVelocity += (acceleration.getX() * simulationTime);
+        this.yVelocity += (acceleration.getY() * simulationTime);
     }
 
     /**
