@@ -1,0 +1,30 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group 'your.group.id' // Replace with your actual group ID
+version '0.1-Alpha' // Replace with your version
+
+sourceSets.main.java.srcDirs = ['velocitysim/src']
+
+application {
+    mainClass = 'dev.sevlow.velocitysim.Main' // Specify the main class
+}
+
+repositories {
+    mavenCentral() // Specify where to find dependencies
+}
+
+
+dependencies {
+    // Add your dependencies here
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': application.mainClass
+        )
+    }
+}
