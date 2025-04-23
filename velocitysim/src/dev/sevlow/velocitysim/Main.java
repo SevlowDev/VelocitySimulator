@@ -211,8 +211,9 @@ class SimulationPanel extends JPanel {
         g.setColor(Color.BLUE);
 
         int axisy0 = (int) (centerY + (((double) screenHeight / scale) * (this.yHeight)));
+        int axisx0 = (int) (centerX + (((double) screenWidth/ scale) * (this.xDistance)));
         g.drawLine(0, axisy0, screenWidth, axisy0);
-        g.drawLine(centerX, screenHeight, centerX, 0);
+        g.drawLine(axisx0, screenHeight, axisx0, 0);
 
         // Offset the ball's position by its distance from the center
         int ballScreenX = centerX;
